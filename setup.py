@@ -35,7 +35,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'http-monitor=cnto_incident_detection.main:http_entry_point',
+            'http-monitor=cnto_incident_detection.http_monitor:http_entry_point',
         ]
     }
 )
