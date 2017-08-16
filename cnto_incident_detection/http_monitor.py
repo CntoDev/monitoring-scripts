@@ -52,7 +52,7 @@ def valid_url(url):
     return False
 
 
-def http_monitor(url, timeout=30, redirect_unknown=True, debug=False):
+def main(url, timeout=30, redirect_unknown=True, debug=False):
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
@@ -89,7 +89,7 @@ def http_monitor(url, timeout=30, redirect_unknown=True, debug=False):
 def http_entry_point():
     args = parser.parse_args()
 
-    http_monitor(**args.__dict__)
+    main(**args.__dict__)
 
 if __name__ == '__main__':
     http_entry_point()
