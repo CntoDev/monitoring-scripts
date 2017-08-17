@@ -28,7 +28,7 @@ setup(
 
     extras_require={
         'tests': [
-            'coverage>=4.4,<5'
+            'coverage>=4.4,<5',
             'pytest>=3.2,<4'
         ]
     },
