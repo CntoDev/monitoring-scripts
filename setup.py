@@ -24,7 +24,9 @@ setup(
 
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
 
-    install_requires=[],
+    install_requires=[
+        'requests==2.18.3'
+    ],
 
     extras_require={
         'tests': [
