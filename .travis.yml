@@ -3,6 +3,8 @@ python:
   - "3.5"
 install:
   - "pip install -e .[tests]"
-script: "pytest tests"
+script: "./run-tests.sh"
+after_script:
+  - "./update-codacy-coverage.sh"
 notifications:
   email: false
