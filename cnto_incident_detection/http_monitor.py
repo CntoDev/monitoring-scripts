@@ -56,7 +56,7 @@ def main(url, timeout=30, redirect_unknown=True, debug=False):
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 
-    if debug:
+    if debug:  # pragma: no cover
         logger.setLevel(logging.DEBUG)
         logger.info('debug logging enabled')
 
@@ -86,10 +86,10 @@ def main(url, timeout=30, redirect_unknown=True, debug=False):
             nagios.plugin_exit(nagios.Codes.CRITICAL, 'status code is %d' % response.status_code)
 
 
-def http_entry_point():
+def http_entry_point():  # pragma: no cover
     args = parser.parse_args()
 
     main(**args.__dict__)
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     http_entry_point()
