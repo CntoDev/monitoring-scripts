@@ -9,7 +9,7 @@ with codecs.open(os.path.join(parent_dir, 'README.md'), encoding='utf-8') as rea
     long_description = readme.read()
 
 setup(
-    name='cnto-incident-detection',
+    name='monitoring-scripts',
 
     use_scm_version=True,
     setup_requires=['setuptools_scm'],
@@ -42,7 +42,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'http-monitor=cnto_incident_detection.http_monitor:http_entry_point',
+            'http-monitor=monitoring_scripts.http_monitor:http_entry_point',
         ]
     }
 )

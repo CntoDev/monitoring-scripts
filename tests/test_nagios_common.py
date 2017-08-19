@@ -2,7 +2,7 @@
 
 import pytest
 
-from cnto_incident_detection import nagios_common
+from monitoring_scripts import nagios_common
 
 
 def test_plugin_exit_error():

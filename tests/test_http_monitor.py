@@ -3,8 +3,8 @@
 import pytest
 import requests
 
-from cnto_incident_detection import http_monitor
-from cnto_incident_detection.nagios_common import Codes
+from monitoring_scripts import http_monitor
+from monitoring_scripts.nagios_common import Codes
 
 
 def assert_nagios_exit(expected_code, exit_code, stdout):
