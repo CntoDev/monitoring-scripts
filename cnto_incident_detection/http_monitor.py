@@ -15,7 +15,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     'url',
     help='address of resource to monitor (http/https), must be properly formatted (i.e. '
-                                'http://sld.tld[:port])'
+         'http://sld.tld[:port] or http://127.0.0.1[:port])'
 )
 parser.add_argument(
     '--timeout',
