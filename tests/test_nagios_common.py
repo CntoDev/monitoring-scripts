@@ -10,6 +10,7 @@ def test_plugin_exit_error():
     with pytest.raises(ValueError):
         nagios_common.plugin_exit(plain_int_code)
 
+
 def test_plugin_exit_message_print(capfd):
     """Assert the specified message is printed to stdout"""
     message = 'test message'
@@ -19,6 +20,7 @@ def test_plugin_exit_message_print(capfd):
     stdout = capfd.readouterr()[0]
 
     assert message in stdout
+
 
 def test_plugin_exit_status_print(capfd):
     """Assert that the exit code name is printed to stdout"""
@@ -31,6 +33,7 @@ def test_plugin_exit_status_print(capfd):
 
     assert exit_code.name in stdout
 
+
 def test_plugin_exit_quiet(capfd):
     """Assert nothing is printed to stdout if message is None"""
     exit_code = nagios_common.Codes.CRITICAL
@@ -41,6 +44,7 @@ def test_plugin_exit_quiet(capfd):
 
     assert not stdout
 
+
 def test_plugin_exit_code():
     """Assert program exit code is correct"""
     exit_code = nagios_common.Codes.UNKNOWN
@@ -50,3 +54,4 @@ def test_plugin_exit_code():
         nagios_common.plugin_exit(exit_code)
 
     assert exit_info.value.code == expected_exit_value
+    
