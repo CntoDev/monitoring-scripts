@@ -1,3 +1,5 @@
+"""Test suite for cnto_incident_detection.nagios_common"""
+
 import pytest
 
 from cnto_incident_detection import nagios_common
@@ -5,6 +7,7 @@ from cnto_incident_detection import nagios_common
 
 def test_plugin_exit_error():
     """Assert ValueError is raised if passed code is not an instance of nagios_common.Codes"""
+
     plain_int_code = 0
 
     with pytest.raises(ValueError):
@@ -13,6 +16,7 @@ def test_plugin_exit_error():
 
 def test_plugin_exit_message_print(capfd):
     """Assert the specified message is printed to stdout"""
+
     message = 'test message'
 
     with pytest.raises(SystemExit):
@@ -24,6 +28,7 @@ def test_plugin_exit_message_print(capfd):
 
 def test_plugin_exit_status_print(capfd):
     """Assert that the exit code name is printed to stdout"""
+
     exit_code = nagios_common.Codes.CRITICAL
     message = 'message'
 
@@ -36,6 +41,7 @@ def test_plugin_exit_status_print(capfd):
 
 def test_plugin_exit_quiet(capfd):
     """Assert nothing is printed to stdout if message is None"""
+
     exit_code = nagios_common.Codes.CRITICAL
 
     with pytest.raises(SystemExit):
@@ -47,6 +53,7 @@ def test_plugin_exit_quiet(capfd):
 
 def test_plugin_exit_code():
     """Assert program exit code is correct"""
+
     exit_code = nagios_common.Codes.UNKNOWN
     expected_exit_value = exit_code.value
 
@@ -54,4 +61,3 @@ def test_plugin_exit_code():
         nagios_common.plugin_exit(exit_code)
 
     assert exit_info.value.code == expected_exit_value
-    
