@@ -9,7 +9,7 @@ class Codes(Enum):
 
 def plugin_exit(code, message=None):
     if not isinstance(code, Codes):
-        return
+        raise ValueError('code must be an instance of cnto_incident_detection.nagios_common.Codes')
     if message:
         print(Codes(code).name + ': ' + message)
     exit(code.value)
