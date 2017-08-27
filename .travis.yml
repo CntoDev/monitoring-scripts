@@ -1,0 +1,8 @@
+language: python
+python:
+  - "3.5"
+install:
+  - "pip install -e .[tests]"
+script: "./run-tests.sh"
+after_script:
+  - "python-codacy-coverage -r coverage.xml"
