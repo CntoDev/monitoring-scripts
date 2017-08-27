@@ -1,4 +1,4 @@
-"""Test suite for cnto_incident_detection.nagios_common"""
+"""Test suite for monitoring_scripts.nagios_common"""
 
 import pytest
 

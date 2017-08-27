@@ -1,4 +1,4 @@
-"""Test suite for cnto_incident_detection.http_monitor"""
+"""Test suite for monitoring_scripts.http_monitor"""
 
 import pytest
 import requests
