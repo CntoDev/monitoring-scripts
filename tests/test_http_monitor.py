@@ -57,49 +57,60 @@ def test_invalid_url_invalid_domain(capfd):
     invalid_url(url, capfd)
 
 
-def test_connection_timeout(mocker, capfd):
-    """Assert CRITICAL status if connection times out"""
+@pytest.mark.parametrize(
+    'exception,expected_code',
+    [
+        (requests.ConnectTimeout, Codes.CRITICAL),
+        (requests.ReadTimeout, Codes.CRITICAL),
+    ]
+)
+def test_timeout(mocker, capfd, exception, expected_code):
+    """Assert the script exits with the correct code when the requests library generates an
+    exception"""
 
-    mocker.patch('requests.head', side_effect=requests.ConnectTimeout())
+    mocker.patch('requests.head', side_effect=exception)
 
-    run_and_assert(capfd, expected_code=Codes.CRITICAL)
-
-
-def test_response_timeout(mocker, capfd):
-    """Assert CRITICAL status if response times out"""
-
-    mocker.patch('requests.head', side_effect=requests.ReadTimeout())
-
-    run_and_assert(capfd, expected_code=Codes.CRITICAL)
-
-
-def test_200_ok(mocker, capfd):
-    """Assert OK status with 200 status code"""
-
-    mocker.patch('requests.head', return_value=generate_response(mocker, 200))
-
-    run_and_assert(capfd, expected_code=Codes.OK)
+    run_and_assert(capfd, expected_code=expected_code)
 
 
-def test_302_redirect_unknown(mocker, capfd):
-    """Assert UNKNOWN status with 302 status code and option redirect_unknown enabled"""
+@pytest.mark.parametrize(
+    'status_code,kwargs',
+    [
+        (200, {})
+    ]
+)
+def test_nominal(mocker, capfd, status_code, kwargs):
+    """Assert OK status with successful HTTP status code"""
 
-    mocker.patch('requests.head', return_value=generate_response(mocker, 302))
+    mocker.patch('requests.head', return_value=generate_response(mocker, status_code))
 
-    run_and_assert(capfd, expected_code=Codes.UNKNOWN)
-
-
-def test_302_redirect_critical(mocker, capfd):
-    """Assert CRITICAL status with 302 status code and option redirect_unknown disabled"""
-
-    mocker.patch('requests.head', return_value=generate_response(mocker, 302))
-
-    run_and_assert(capfd, expected_code=Codes.CRITICAL, redirect_unknown=False)
+    run_and_assert(capfd, expected_code=Codes.OK, **kwargs)
 
 
-def test_error(mocker, capfd):
-    """Assert CRITICAL status with 4xx status code"""
+@pytest.mark.parametrize(
+    'status_code,kwargs',
+    [
+        (302, {})
+    ]
+)
+def test_unknown(mocker, capfd, status_code, kwargs):
+    """Assert UNKNOWN status with successful HTTP status code"""
 
-    mocker.patch('requests.head', return_value=generate_response(mocker, 401))
+    mocker.patch('requests.head', return_value=generate_response(mocker, status_code))
 
-    run_and_assert(capfd, expected_code=Codes.CRITICAL)
+    run_and_assert(capfd, expected_code=Codes.UNKNOWN, **kwargs)
+
+
+@pytest.mark.parametrize(
+    'status_code,kwargs',
+    [
+        (302, {'redirect_unknown': False}),
+        (401, {})
+    ]
+)
+def test_critical(mocker, capfd, status_code, kwargs):
+    """Assert UNKNOWN status with successful HTTP status code"""
+
+    mocker.patch('requests.head', return_value=generate_response(mocker, status_code))
+
+    run_and_assert(capfd, expected_code=Codes.CRITICAL, **kwargs)
