@@ -35,26 +35,17 @@ def generate_response(mocker, status_code=200):
     return response
 
 
+@pytest.mark.parametrize(
+    'url',
+    [
+        'http:/foo.bar',
+        'http://'
+    ]
+)
 def invalid_url(url, capfd):
     """Assert UNKNOWN status with wrong URL"""
 
     run_and_assert(capfd, expected_code=Codes.UNKNOWN, url=url)
-
-
-def test_invalid_url_invalid_protocol(capfd):
-    """Assert UNKNOWN status with wrong URL protocol"""
-
-    url = 'htt://foo.bar'
-
-    invalid_url(url, capfd)
-
-
-def test_invalid_url_invalid_domain(capfd):
-    """Assert UNKNOWN status with wrong URL domain"""
-
-    url = 'http://foo'
-
-    invalid_url(url, capfd)
 
 
 @pytest.mark.parametrize(

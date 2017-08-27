@@ -6,7 +6,7 @@ otherwise, different behaviours may be specified using optional arguments.
 
 import argparse
 import logging
-import re
+from urllib.parse import urlparse
 import requests
 
 from . import nagios_common as nagios
@@ -45,22 +45,13 @@ parser.add_argument(
 
 def valid_http_url(url):
     """
-    Checks if a string is a valid, full-qualified http URL. A URL must respect the following
-    syntax to be considered valid: http/https://fldomain.tldomain[:port]
+    Checks if a string is a valid URL compliant to RFC2396
     :param url: string
     :return: boolean
     """
 
-    regex = re.compile(
-        '^(?:http)s?://'
-        '(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|'
-        'localhost|'
-        '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'
-        '(?::\d+)?'
-        '(?:/?|[/?]\S+)$', re.IGNORECASE)
-
-    match = re.fullmatch(regex, url)
-    if match:
+    parsed_url = urlparse(url)
+    if parsed_url.scheme is not None and parsed_url.netloc is not None:
         return True
     return False
 
