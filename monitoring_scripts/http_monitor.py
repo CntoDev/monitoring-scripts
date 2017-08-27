@@ -1,4 +1,8 @@
-"""HTTP monitor script main module"""
+"""
+Nagios-compatible plugin to check a resource availability over HTTP/HTTPS. By default it is
+considered to be in an OK status if the HTTP status code is 200 and in a CRITICAL status
+otherwise, different behaviours may be specified using optional arguments.
+"""
 
 import argparse
 import logging
@@ -9,11 +13,7 @@ from . import nagios_common as nagios
 
 parser = argparse.ArgumentParser(
     prog='http-monitor',
-    description='Nagios-compatible plugin to check a resource availability over HTTP/HTTPS. By '
-                'default is considered to be in a OK status if the HTTP status code is 200 and in '
-                'critical status is considered to be in a OK status if the HTTP status code is '
-                '200 and in CRITICAL status otherwise, different behaviours may be specified '
-                'using optional arguments.',
+    description=__doc__,
     formatter_class=argparse.ArgumentDefaultsHelpFormatter
 )
 parser.add_argument(
