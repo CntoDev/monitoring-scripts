@@ -6,5 +6,3 @@ install:
 script: "./run-tests.sh"
 after_script:
   - "./update-codacy-coverage.sh"
-notifications:
-  email: false
