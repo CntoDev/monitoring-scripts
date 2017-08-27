@@ -17,8 +17,7 @@ setup(
     description='Carpe Noctem Tactical Operations Services monitoring scripts',
     long_description=long_description,
 
-    author='Enrico Ghidoni',
-    author_email='enricoghdn@gmail.com',
+    author='CNTO Research and Development branch',
 
     license='BSD 3-Clause License',
 
