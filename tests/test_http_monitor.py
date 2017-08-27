@@ -3,7 +3,7 @@
 import pytest
 import requests
 
-from monitoring_scripts import http_monitor
+from monitoring_scripts import http_monitor as unit
 from monitoring_scripts.nagios_common import Codes
 
 
@@ -20,7 +20,7 @@ def run_and_assert(capfd, expected_code=Codes.OK, url='http://foo.bar', timeout=
     code match the expected return code and the Nagios guidelines """
 
     with pytest.raises(SystemExit) as exit_info:
-        http_monitor.main(url, timeout, redirect_unknown, debug)
+        unit.main(url, timeout, redirect_unknown, debug)
 
     out = capfd.readouterr()[0]
     assert_nagios_exit(expected_code, exit_info.value.code, out)
