@@ -5,4 +5,4 @@ install:
   - "pip install -e .[tests]"
 script: "./run-tests.sh"
 after_script:
-  - "./update-codacy-coverage.sh"
+  - "python-codacy-coverage -r coverage.xml"
