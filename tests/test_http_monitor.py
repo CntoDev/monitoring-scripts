@@ -42,7 +42,7 @@ def generate_response(mocker, status_code=200):
         'http://'
     ]
 )
-def invalid_url(url, capfd):
+def test_invalid_url(capfd, url):
     """Assert UNKNOWN status with wrong URL"""
 
     run_and_assert(capfd, expected_code=Codes.UNKNOWN, url=url)
