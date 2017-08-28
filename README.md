@@ -18,7 +18,7 @@ Installation is possible via `pip`: clone or download the repository, open a ter
 
 ## Available scripts
 
- - `http-monitor`: check a resource availability over HTTP/HTTPS. By default the resource is considered to be in a `OK` status if the HTTP status code is 200 and in `CRITICAL` status otherwise, different behaviours may be specified using optional arguments.
+ - `cnto-http-monitor`: check a resource availability over HTTP/HTTPS. By default the resource is considered to be in a `OK` status if the HTTP status code is 200 and in `CRITICAL` status otherwise, different behaviours may be specified using optional arguments.
 
 ## Planned scripts
 

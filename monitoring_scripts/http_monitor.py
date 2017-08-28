@@ -51,7 +51,7 @@ def valid_http_url(url):
     """
 
     parsed_url = urlparse(url)
-    if parsed_url.scheme is not None and parsed_url.netloc is not None:
+    if parsed_url.scheme and parsed_url.netloc:
         return True
     return False
 
