@@ -13,11 +13,12 @@ class Codes(Enum):
 
 
 def plugin_exit(code, message=None):
-    """Common method to end a Nagios plugin. If no message is specified the service status will
-    not be printed."""
+    """Common method to end a Nagios plugin. If no message is specified the
+    service status will not be printed."""
 
     if not isinstance(code, Codes):
-        raise ValueError('code must be an instance of monitoring_scripts.nagios_common.Codes')
+        raise ValueError('code must be an instance of'
+                         'monitoring_scripts.nagios_common.Codes')
     if message:
         print(Codes(code).name + ': ' + message)
     exit(code.value)

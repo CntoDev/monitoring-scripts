@@ -6,7 +6,8 @@ from monitoring_scripts import nagios_common as unit
 
 
 def test_plugin_exit_error():
-    """Assert ValueError is raised if passed code is not an instance of nagios_common.Codes"""
+    """Assert ValueError is raised if passed code is not an instance of
+    nagios_common.Codes"""
 
     plain_int_code = 0
 
