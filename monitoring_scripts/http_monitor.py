@@ -1,7 +1,8 @@
 """
-Nagios-compatible plugin to check a resource availability over HTTP/HTTPS. By default it is
-considered to be in an OK status if the HTTP status code is 200 and in a CRITICAL status
-otherwise, different behaviours may be specified using optional arguments.
+Nagios-compatible plugin to check a resource availability over HTTP/HTTPS.
+By default it is considered to be in an OK status if the HTTP status code is
+200 and in a CRITICAL status otherwise, different behaviours may be specified
+using optional arguments.
 """
 
 import argparse
@@ -12,28 +13,28 @@ import requests
 from . import nagios_common as nagios
 
 parser = argparse.ArgumentParser(
-    prog='http-monitor',
+    prog='cnto-http-monitor',
     description=__doc__,
     formatter_class=argparse.ArgumentDefaultsHelpFormatter
 )
 parser.add_argument(
     'url',
-    help='address of resource to monitor (http/https), must be properly formatted (i.e. '
-         'http://sld.tld[:port] or http://127.0.0.1[:port])'
+    help='address of resource to monitor (http/https), must be '
+         'properlyformatted (i.e. http://sld.tld[:port] or http://127.0.0.1'
+         '[:port])'
 )
 parser.add_argument(
     '--timeout',
     default=30,
     type=int,
-    help='maximum time (in seconds) to wait for a response, after which the resource is '
-         'considered in CRITICAL status '
+    help='maximum time (in seconds) to wait for a response, after which the'
+         'resource is considered in CRITICAL status '
 )
 parser.add_argument(
     '--redirect-unknown',
     action='store_true',
-    help='if enabled a 302 status code will result in UNKNOWN status. If disabled a 302 status '
-         'code will result in '
-         'CRITICAL status'
+    help='if enabled a 302 status code will result in UNKNOWN status. If'
+         'disabled a 302 status code will result in CRITICAL status'
 )
 parser.add_argument(
     '--debug',
@@ -78,19 +79,23 @@ def main(url, timeout=30, redirect_unknown=True, debug=False):
     except requests.ConnectTimeout:
         nagios.plugin_exit(nagios.Codes.CRITICAL, 'connection timeout')
     except requests.ReadTimeout:
-        nagios.plugin_exit(nagios.Codes.CRITICAL, 'no response received before timeout')
+        nagios.plugin_exit(nagios.Codes.CRITICAL, 'no response received before'
+                                                  'timeout')
     else:
         logger.debug('response received')
         if response.status_code == requests.codes.ok:
             # Response is OK
-            nagios.plugin_exit(nagios.Codes.OK, 'status code is %d' % response.status_code)
+            nagios.plugin_exit(nagios.Codes.OK,
+                               'status code is %d' % response.status_code)
         elif redirect_unknown and response.status_code == requests.codes.found:
             # Redirect considered as UNKNOWN
-            nagios.plugin_exit(nagios.Codes.UNKNOWN, 'redirection with code %d' %
+            nagios.plugin_exit(nagios.Codes.UNKNOWN,
+                               'redirection with code %d' %
                                response.status_code)
         else:
             # Other code, considered not working
-            nagios.plugin_exit(nagios.Codes.CRITICAL, 'status code is %d' % response.status_code)
+            nagios.plugin_exit(nagios.Codes.CRITICAL,
+                               'status code is %d' % response.status_code)
 
 
 def http_entry_point():  # pragma: no cover

@@ -14,10 +14,11 @@ def assert_nagios_exit(expected_code, exit_code, stdout):
     assert stdout.startswith(expected_code.name + ':')
 
 
-def run_and_assert(capfd, expected_code=Codes.OK, url='http://foo.bar', timeout=30,
-                   redirect_unknown=True, debug=False):
-    """Run http_monitor.main with the specified parameters and asserts that its output and return
-    code match the expected return code and the Nagios guidelines """
+def run_and_assert(capfd, expected_code=Codes.OK, url='http://foo.bar',
+                   timeout=30, redirect_unknown=True, debug=False):
+    """Run http_monitor.main with the specified parameters and asserts that its
+    output and return code match the expected return code and the Nagios
+    guidelines """
 
     with pytest.raises(SystemExit) as exit_info:
         unit.main(url, timeout, redirect_unknown, debug)
@@ -56,8 +57,8 @@ def test_invalid_url(capfd, url):
     ]
 )
 def test_timeout(mocker, capfd, exception, expected_code):
-    """Assert the script exits with the correct code when the requests library generates an
-    exception"""
+    """Assert the script exits with the correct code when the requests library
+    generates an exception"""
 
     mocker.patch('requests.head', side_effect=exception)
 
@@ -73,7 +74,8 @@ def test_timeout(mocker, capfd, exception, expected_code):
 def test_nominal(mocker, capfd, status_code, kwargs):
     """Assert OK status with successful HTTP status code"""
 
-    mocker.patch('requests.head', return_value=generate_response(mocker, status_code))
+    mocker.patch('requests.head',
+                 return_value=generate_response(mocker, status_code))
 
     run_and_assert(capfd, expected_code=Codes.OK, **kwargs)
 
@@ -87,7 +89,8 @@ def test_nominal(mocker, capfd, status_code, kwargs):
 def test_unknown(mocker, capfd, status_code, kwargs):
     """Assert UNKNOWN status with successful HTTP status code"""
 
-    mocker.patch('requests.head', return_value=generate_response(mocker, status_code))
+    mocker.patch('requests.head',
+                 return_value=generate_response(mocker, status_code))
 
     run_and_assert(capfd, expected_code=Codes.UNKNOWN, **kwargs)
 
@@ -102,6 +105,7 @@ def test_unknown(mocker, capfd, status_code, kwargs):
 def test_critical(mocker, capfd, status_code, kwargs):
     """Assert UNKNOWN status with successful HTTP status code"""
 
-    mocker.patch('requests.head', return_value=generate_response(mocker, status_code))
+    mocker.patch('requests.head',
+                 return_value=generate_response(mocker, status_code))
 
     run_and_assert(capfd, expected_code=Codes.CRITICAL, **kwargs)
