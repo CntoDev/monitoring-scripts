@@ -11,9 +11,7 @@ def run_and_assert(capfd=None, expected_code=Codes.OK,
                    expected_message_part=None,
                    host='ts.some.server',
                    port=9987, timeout=10, debug=False):
-    """Run ts3_monitor.main with the specified parameters and asserts that
-    its output and return code match the expected return code and Nagios
-    guidelines"""
+    """Run the unit and assert expected result"""
 
     with pytest.raises(SystemExit) as exit_info:
         unit.main(host=host, port=port, timeout=timeout, debug=debug)
@@ -53,8 +51,7 @@ def test_response_timeout(mocker, capfd):
 )
 def test_with_response(capfd, mocker, response_string, expected_code,
                        message_part):
-    """Assert CRITICAL status if response is invalid or OK if response is
-    valid"""
+    """Assert CRITICAL status if response is invalid or OK if response is valid"""
 
     response = response_string.encode(unit.ENCODING_FORMAT)
 

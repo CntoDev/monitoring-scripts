@@ -27,7 +27,7 @@ setup(
 
     install_requires=[
         'requests>=2.18.4,<3',
-        'python-valve>=0.2.1,<1'
+        'python-valve>=0.2.1,<1',
     ],
 
     extras_require={
@@ -36,8 +36,8 @@ setup(
             'pytest>=3.2,<4',
             'pytest-mock>=1.6,<2',
             'pytest-cov>=2.5,<3',
-            'codacy-coverage>=1.3,<2'
-        ]
+            'codacy-coverage>=1.3,<2',
+        ],
     },
 
     entry_points={
@@ -47,7 +47,7 @@ setup(
             'cnto-ts3-monitor=monitoring_scripts.ts3_monitor'
             ':ts3_entry_point',
             'cnto-arma3-monitor=monitoring_scripts.arma3_monitor'
-            ':arma3_entry_point'
-        ]
-    }
+            ':arma3_entry_point',
+        ],
+    },
 )

@@ -14,9 +14,7 @@ def run_and_assert(capfd=None, expected_code=Codes.OK,
                    expected_message_part=None,
                    host='arma.server.host',
                    port=2303, timeout=10, debug=False):
-    """Run ts3_monitor.main with the specified parameters and asserts that
-    its output and return code match the expected return code and Nagios
-    guidelines"""
+    """Run the unit and assert expected result"""
 
     with pytest.raises(SystemExit) as exit_info:
         unit.main(host=host, port=port, timeout=timeout, debug=debug)
@@ -32,6 +30,7 @@ def run_and_assert(capfd=None, expected_code=Codes.OK,
 
 
 def load_json_fixture(file_name):
+    """Load fixtures from json formatted file located in a 'fixtures' directory"""
     file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'fixtures', file_name)
     with open(file_path, 'r') as json_file:
         return json.load(json_file)
@@ -68,8 +67,7 @@ def test_no_response(mocker, capfd):
     ]
 )
 def test_with_response(capfd, mocker, response, expected_code, message_part):
-    """Assert CRITICAL status if response is invalid or OK if response is 
-    valid"""
+    """Assert CRITICAL status if response is invalid or OK if response is valid"""
 
     mock_querier = mocker.Mock()
     mock_querier.return_value.info.return_value = response
