@@ -26,7 +26,8 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
 
     install_requires=[
-        'requests>=2.18.4,<3'
+        'requests>=2.18.4,<3',
+        'python-valve>=0.2.1,<1'
     ],
 
     extras_require={
