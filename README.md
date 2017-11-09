@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/CntoDev/monitoring-scripts.svg?branch=master)](https://travis-ci.org/CntoDev/monitoring-scripts)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d4af8ca9290d444cab0c898bab6a6e94)](https://www.codacy.com/app/CNTODev/monitoring-scripts?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CntoDev/monitoring-scripts&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d4af8ca9290d444cab0c898bab6a6e94)](https://www.codacy.com/app/CNTODev/monitoring-scripts?utm_source=github.com&utm_medium=referral&utm_content=CntoDev/monitoring-scripts&utm_campaign=Badge_Coverage)
+[![Requirements Status](https://requires.io/github/CntoDev/monitoring-scripts/requirements.svg?branch=master)](https://requires.io/github/CntoDev/monitoring-scripts/requirements/?branch=master)
 
 # CNTO Incident Detection
 This repo contains the scripts used by [Carpe Noctem Tactical Operations](http://www.carpenoctem.co) to monitor the status of its online services.
