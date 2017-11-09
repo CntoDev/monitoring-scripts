@@ -41,9 +41,12 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'cnto-http-monitor=monitoring_scripts.http_monitor:http_entry_point',
+            'cnto-http-monitor=monitoring_scripts.http_monitor'
+            ':http_entry_point',
             'cnto-ts3-monitor=monitoring_scripts.ts3_monitor'
             ':ts3_entry_point',
+            'cnto-arma3-monitor=monitoring_scripts.arma3_monitor'
+            ':arma3_entry_point'
         ]
     }
 )
