@@ -89,5 +89,6 @@ def ts3_entry_point():  # pragma: no cover
 
     main(**args.__dict__)
 
+
 if __name__ == '__main__':  # pragma: no cover
     ts3_entry_point()

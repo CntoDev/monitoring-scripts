@@ -16,9 +16,7 @@ def assert_nagios_exit(expected_code, exit_code, stdout):
 
 def run_and_assert(capfd, expected_code=Codes.OK, url='http://foo.bar',
                    timeout=30, redirect_unknown=True, debug=False):
-    """Run http_monitor.main with the specified parameters and asserts that its
-    output and return code match the expected return code and the Nagios
-    guidelines """
+    """Run the unit and assert expected result"""
 
     with pytest.raises(SystemExit) as exit_info:
         unit.main(url, timeout, redirect_unknown, debug)
@@ -57,8 +55,7 @@ def test_invalid_url(capfd, url):
     ]
 )
 def test_timeout(mocker, capfd, exception, expected_code):
-    """Assert the script exits with the correct code when the requests library
-    generates an exception"""
+    """Assert CRITICAL status when timeout is exceeded"""
 
     mocker.patch('requests.head', side_effect=exception)
 

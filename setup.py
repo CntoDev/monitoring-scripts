@@ -26,7 +26,8 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
 
     install_requires=[
-        'requests>=2.18.4,<3'
+        'requests>=2.18.4,<3',
+        'python-valve>=0.2.1,<1',
     ],
 
     extras_require={
@@ -35,15 +36,18 @@ setup(
             'pytest>=3.2,<4',
             'pytest-mock>=1.6,<2',
             'pytest-cov>=2.5,<3',
-            'codacy-coverage>=1.3,<2'
-        ]
+            'codacy-coverage>=1.3,<2',
+        ],
     },
 
     entry_points={
         'console_scripts': [
-            'cnto-http-monitor=monitoring_scripts.http_monitor:http_entry_point',
+            'cnto-http-monitor=monitoring_scripts.http_monitor'
+            ':http_entry_point',
             'cnto-ts3-monitor=monitoring_scripts.ts3_monitor'
             ':ts3_entry_point',
-        ]
-    }
+            'cnto-arma3-monitor=monitoring_scripts.arma3_monitor'
+            ':arma3_entry_point',
+        ],
+    },
 )

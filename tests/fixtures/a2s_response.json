@@ -1,0 +1,17 @@
+{
+    "map" : "",
+    "game" : "Arma 3",
+    "version" : "1.76.142873",
+    "server_name" : "some.arma3.host",
+    "app_id" : 0,
+    "player_count" : 0,
+    "folder" : "Arma3",
+    "max_players" : 64,
+    "bot_count" : 0,
+    "server_type" :  "< ServerType 100 Dedicated>",
+    "platform" :  "< Platform 108 Linux>",
+    "protocol" : 17,
+    "response_type" : 73,
+    "vac_enabled" : 0,
+    "password_protected" : 1
+}

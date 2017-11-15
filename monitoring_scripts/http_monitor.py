@@ -45,11 +45,7 @@ parser.add_argument(
 
 
 def valid_http_url(url):
-    """
-    Checks if a string is a valid URL compliant to RFC2396
-    :param url: string
-    :return: boolean
-    """
+    """Check if a string is a valid URL compliant to RFC2396"""
 
     parsed_url = urlparse(url)
     if parsed_url.scheme and parsed_url.netloc:
@@ -104,6 +100,7 @@ def http_entry_point():  # pragma: no cover
     args = parser.parse_args()
 
     main(**args.__dict__)
+
 
 if __name__ == '__main__':  # pragma: no cover
     http_entry_point()
