@@ -52,10 +52,11 @@ def test_invalid_url(capfd, url):
     [
         (requests.ConnectTimeout, Codes.CRITICAL),
         (requests.ReadTimeout, Codes.CRITICAL),
+        (requests.ConnectionError, Codes.UNKNOWN),
     ]
 )
-def test_timeout(mocker, capfd, exception, expected_code):
-    """Assert CRITICAL status when timeout is exceeded"""
+def test_exception(mocker, capfd, exception, expected_code):
+    """Assert correct status when exception is raised"""
 
     mocker.patch('requests.head', side_effect=exception)
 

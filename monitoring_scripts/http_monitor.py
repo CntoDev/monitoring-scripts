@@ -77,6 +77,8 @@ def main(url, timeout=30, redirect_unknown=True, debug=False):
     except requests.ReadTimeout:
         nagios.plugin_exit(nagios.Codes.CRITICAL, 'no response received before'
                                                   'timeout')
+    except requests.ConnectionError as e:
+        nagios.plugin_exit(nagios.Codes.UNKNOWN, 'connection error')
     else:
         logger.debug('response received')
         if response.status_code == requests.codes.ok:

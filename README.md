@@ -25,4 +25,4 @@ Installation is possible via `pip`: clone or download the repository, open a ter
 
 ## Planned scripts
 
- - `cnto-monitor`: forwards the status of several services to a Cachet instance.
+ - `cnto-check-runner`: forwards the status of several services to a Cachet instance.
