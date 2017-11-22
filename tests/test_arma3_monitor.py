@@ -2,31 +2,23 @@
 import json
 import os
 
-import pytest
 import socket
+import pytest
 import valve.source.a2s
 
 from monitoring_scripts import arma3_monitor as unit
 from monitoring_scripts.nagios_common import Codes
+from . import common
 
 
-def run_and_assert(capfd=None, expected_code=Codes.OK,
-                   expected_message_part=None,
-                   host='arma.server.host',
-                   port=2303, timeout=10, debug=False):
-    """Run the unit and assert expected result"""
+# pylint: disable-msg=too-many-arguments
+def run_and_assert(capfd, expected_code=Codes.OK, expected_message_part=None,
+                   host='arma.server.host', port=2303, timeout=10, debug=False):
+    """Provides standard arguments to be passed to test_utils.run_and_assert"""
 
-    with pytest.raises(SystemExit) as exit_info:
-        unit.main(host=host, port=port, timeout=timeout, debug=debug)
-
-    assert exit_info.value.code == expected_code.value
-
-    if capfd:
-        out = capfd.readouterr()[0]
-        assert out.startswith(expected_code.name + ':')
-
-        if expected_message_part:
-            assert expected_message_part in out
+    common.run_and_assert(unit.main, expected_code=expected_code, capfd=capfd,
+                          expected_message=expected_message_part, host=host, port=port,
+                          timeout=timeout, debug=debug)
 
 
 def load_json_fixture(file_name):
@@ -43,8 +35,8 @@ def test_invalid_host(capfd, mocker):
     mock_querier.return_value.info.side_effect = socket.gaierror
     mocker.patch('valve.source.a2s.ServerQuerier', side_effect=mock_querier)
 
-    run_and_assert(capfd, expected_code=Codes.UNKNOWN,
-                   expected_message_part='invalid hostname')
+    run_and_assert(capfd=capfd, expected_code=Codes.UNKNOWN, expected_message_part='invalid '
+                                                                                   'hostname')
 
 
 def test_no_response(mocker, capfd):
@@ -54,7 +46,7 @@ def test_no_response(mocker, capfd):
     mock_querier.return_value.info.side_effect = valve.source.NoResponseError
     mocker.patch('valve.source.a2s.ServerQuerier', side_effect=mock_querier)
 
-    run_and_assert(capfd, expected_code=Codes.CRITICAL,
+    run_and_assert(capfd=capfd, expected_code=Codes.CRITICAL,
                    expected_message_part='no response')
 
 
@@ -73,5 +65,5 @@ def test_with_response(capfd, mocker, response, expected_code, message_part):
     mock_querier.return_value.info.return_value = response
     mocker.patch('valve.source.a2s.ServerQuerier', side_effect=mock_querier)
 
-    run_and_assert(capfd, expected_code=expected_code,
+    run_and_assert(capfd=capfd, expected_code=expected_code,
                    expected_message_part=message_part)

@@ -1,29 +1,21 @@
 """Test suite for monitoring_scripts.ts3_monitor"""
 
-import pytest
 import socket
+import pytest
 
 from monitoring_scripts import ts3_monitor as unit
 from monitoring_scripts.nagios_common import Codes
+from . import common
 
 
-def run_and_assert(capfd=None, expected_code=Codes.OK,
-                   expected_message_part=None,
-                   host='ts.some.server',
-                   port=9987, timeout=10, debug=False):
-    """Run the unit and assert expected result"""
+# pylint: disable-msg=too-many-arguments
+def run_and_assert(capfd, expected_code=Codes.OK, expected_message_part=None,
+                   host='ts.some.server', port=9987, timeout=10, debug=False):
+    """Provides standard arguments to be passed to test_utils.run_and_assert"""
 
-    with pytest.raises(SystemExit) as exit_info:
-        unit.main(host=host, port=port, timeout=timeout, debug=debug)
-
-    assert exit_info.value.code == expected_code.value
-
-    if capfd:
-        out = capfd.readouterr()[0]
-        assert out.startswith(expected_code.name + ':')
-
-        if expected_message_part:
-            assert expected_message_part in out
+    common.run_and_assert(unit.main, expected_code=expected_code, capfd=capfd,
+                          expected_message=expected_message_part, host=host, port=port,
+                          timeout=timeout, debug=debug)
 
 
 def test_invalid_host(capfd, mocker):
@@ -31,7 +23,7 @@ def test_invalid_host(capfd, mocker):
 
     mocker.patch('socket.socket.sendto', side_effect=socket.gaierror)
 
-    run_and_assert(capfd, expected_code=Codes.UNKNOWN)
+    run_and_assert(capfd=capfd, expected_code=Codes.UNKNOWN)
 
 
 def test_response_timeout(mocker, capfd):
@@ -39,7 +31,7 @@ def test_response_timeout(mocker, capfd):
 
     mocker.patch('socket.socket.sendto', side_effect=socket.timeout)
 
-    run_and_assert(capfd, expected_code=Codes.CRITICAL)
+    run_and_assert(capfd=capfd, expected_code=Codes.CRITICAL)
 
 
 @pytest.mark.parametrize(
@@ -59,5 +51,5 @@ def test_with_response(capfd, mocker, response_string, expected_code,
     mock_socket.return_value.recv.return_value = response
     mocker.patch('socket.socket', side_effect=mock_socket)
 
-    run_and_assert(capfd, expected_message_part=message_part,
+    run_and_assert(capfd=capfd, expected_message_part=message_part,
                    expected_code=expected_code)

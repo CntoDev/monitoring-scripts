@@ -45,7 +45,7 @@ parser.add_argument(
 def main(host, port, timeout=5, debug=False):
     """Actual monitoring execution"""
 
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.WARNING)
     logger = logging.getLogger(__name__)
 
     if debug:  # pragma: no cover

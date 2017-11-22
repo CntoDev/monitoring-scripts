@@ -5,24 +5,17 @@ import requests
 
 from monitoring_scripts import http_monitor as unit
 from monitoring_scripts.nagios_common import Codes
+from . import common
 
 
-def assert_nagios_exit(expected_code, exit_code, stdout):
-    """Common assertions to test Nagios compatibility"""
-
-    assert exit_code == expected_code.value
-    assert stdout.startswith(expected_code.name + ':')
-
-
+# pylint: disable-msg=too-many-arguments
 def run_and_assert(capfd, expected_code=Codes.OK, url='http://foo.bar',
                    timeout=30, redirect_unknown=True, debug=False):
-    """Run the unit and assert expected result"""
+    """Provides standard arguments to be passed to test_utils.run_and_assert"""
 
-    with pytest.raises(SystemExit) as exit_info:
-        unit.main(url, timeout, redirect_unknown, debug)
-
-    out = capfd.readouterr()[0]
-    assert_nagios_exit(expected_code, exit_info.value.code, out)
+    common.run_and_assert(unit.main, expected_code=expected_code, capfd=capfd,
+                          url=url, timeout=timeout, redirect_unknown=redirect_unknown,
+                          debug=debug)
 
 
 def generate_response(mocker, status_code=200):
@@ -44,7 +37,7 @@ def generate_response(mocker, status_code=200):
 def test_invalid_url(capfd, url):
     """Assert UNKNOWN status with wrong URL"""
 
-    run_and_assert(capfd, expected_code=Codes.UNKNOWN, url=url)
+    run_and_assert(capfd=capfd, expected_code=Codes.UNKNOWN, url=url)
 
 
 @pytest.mark.parametrize(
@@ -60,7 +53,7 @@ def test_exception(mocker, capfd, exception, expected_code):
 
     mocker.patch('requests.head', side_effect=exception)
 
-    run_and_assert(capfd, expected_code=expected_code)
+    run_and_assert(capfd=capfd, expected_code=expected_code)
 
 
 @pytest.mark.parametrize(
@@ -75,7 +68,7 @@ def test_nominal(mocker, capfd, status_code, kwargs):
     mocker.patch('requests.head',
                  return_value=generate_response(mocker, status_code))
 
-    run_and_assert(capfd, expected_code=Codes.OK, **kwargs)
+    run_and_assert(capfd=capfd, expected_code=Codes.OK, **kwargs)
 
 
 @pytest.mark.parametrize(
@@ -90,7 +83,7 @@ def test_unknown(mocker, capfd, status_code, kwargs):
     mocker.patch('requests.head',
                  return_value=generate_response(mocker, status_code))
 
-    run_and_assert(capfd, expected_code=Codes.UNKNOWN, **kwargs)
+    run_and_assert(capfd=capfd, expected_code=Codes.UNKNOWN, **kwargs)
 
 
 @pytest.mark.parametrize(
@@ -106,4 +99,4 @@ def test_critical(mocker, capfd, status_code, kwargs):
     mocker.patch('requests.head',
                  return_value=generate_response(mocker, status_code))
 
-    run_and_assert(capfd, expected_code=Codes.CRITICAL, **kwargs)
+    run_and_assert(capfd=capfd, expected_code=Codes.CRITICAL, **kwargs)

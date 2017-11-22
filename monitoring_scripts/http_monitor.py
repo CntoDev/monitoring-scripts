@@ -56,7 +56,7 @@ def valid_http_url(url):
 def main(url, timeout=30, redirect_unknown=True, debug=False):
     """Actual monitoring execution"""
 
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.WARNING)
     logger = logging.getLogger(__name__)
 
     if debug:  # pragma: no cover
@@ -77,7 +77,7 @@ def main(url, timeout=30, redirect_unknown=True, debug=False):
     except requests.ReadTimeout:
         nagios.plugin_exit(nagios.Codes.CRITICAL, 'no response received before'
                                                   'timeout')
-    except requests.ConnectionError as e:
+    except requests.ConnectionError:
         nagios.plugin_exit(nagios.Codes.UNKNOWN, 'connection error')
     else:
         logger.debug('response received')
