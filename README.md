@@ -19,9 +19,10 @@ Installation is possible via `pip`: clone or download the repository, open a ter
 
 ## Available scripts
 
- - `cnto-http-monitor`: check a resource availability over HTTP/HTTPS. By default the resource is considered to be in a `OK` status if the HTTP status code is 200 and in `CRITICAL` status otherwise, different behaviours may be specified using optional arguments.
- - `cnto-ts3-monitor`: check a TeamSpeak 3 Server availability. If the server responds to a connection requests on the client port a `OK` status is triggered, if the response exceeds the timeout a `CRITICAL` status is triggered, if the provided hostname/address is invalid a `UNKNOWN` status is triggered.
+ - `cnto-http-monitor`: checks a resource availability over HTTP/HTTPS. By default the resource is considered to be in a `OK` status if the HTTP status code is 200 and in `CRITICAL` status otherwise, different behaviours may be specified using optional arguments.
+ - `cnto-ts3-monitor`: checks a TeamSpeak 3 Server availability. If the server responds to a connection requests on the client port a `OK` status is triggered, if the response exceeds the timeout a `CRITICAL` status is triggered, if the provided hostname/address is invalid a `UNKNOWN` status is triggered.
+  - `cnto-arma3-monitor`: checks an Arma3 Server availability using `A2S` server queries. If the server responds a `OK` status is triggered, if the response exceeds the timeout a `CRITICAL` status is triggered, if either one of the provided hostname/address and port is invalid a `UNKNOWN` status is triggered.
 
 ## Planned scripts
 
- - `cnto-arma3-monitor`: check the status of an Arma3 server
+ - `cnto-monitor`: forwards the status of several services to a Cachet instance.
