@@ -4,7 +4,7 @@ from enum import Enum
 
 
 class Codes(Enum):
-    """Collection of plugin possible exit codes"""
+    """Collection of plugin possible plugin_exit codes"""
 
     OK = 0
     WARNING = 1
@@ -20,5 +20,5 @@ def plugin_exit(code, message=None):
         raise ValueError('code must be an instance of'
                          'monitoring_scripts.nagios_common.Codes')
     if message:
-        print(Codes(code).name + ': ' + message)
+        print(code.name + ': ' + message)
     exit(code.value)
