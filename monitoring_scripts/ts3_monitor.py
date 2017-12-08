@@ -50,7 +50,7 @@ ENCODING_FORMAT = 'cp1252'
 def main(host, port=9987, timeout=10, debug=False):
     """Actual monitoring execution"""
 
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.WARNING)
     logger = logging.getLogger(__name__)
 
     if debug:  # pragma: no cover
@@ -69,9 +69,6 @@ def main(host, port=9987, timeout=10, debug=False):
 
         response_string = response_bytes.decode(ENCODING_FORMAT,
                                                 errors='ignore')
-
-        logging.critical('Response: ' + response_string)
-
         if VALID_CONNECTION_STRING in response_string:
             nagios.plugin_exit(nagios.Codes.OK, 'connection successful')
         else:

@@ -7,6 +7,8 @@ dist/
 htmlcov/
 coverage.xml
 .cache/
+.coverage.*
+.tox/
 
 # IntelliJ files
 .idea/

@@ -2,7 +2,10 @@ language: python
 python:
   - "3.5"
 install:
-  - "pip install -e .[tests]"
-script: "./run-tests.sh"
+  - "pip install tox-travis"
+script:
+  - "tox"
+  - "tox -e coverage"
 after_script:
+  - "pip install codacy-coverage"
   - "python-codacy-coverage -r coverage.xml"
