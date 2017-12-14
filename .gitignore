@@ -1,5 +1,5 @@
 # Project related files
-env/
+venv/
 *.egg*/
 __pycache__/
 dist/
@@ -9,6 +9,7 @@ coverage.xml
 .cache/
 .coverage.*
 .tox/
+config.ini
 
 # IntelliJ files
 .idea/

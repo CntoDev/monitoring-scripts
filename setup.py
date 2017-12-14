@@ -28,6 +28,7 @@ setup(
     install_requires=[
         'requests>=2.18.4,<3',
         'python-valve>=0.2.1,<1',
+        'python-cachetclient>=0.2.4,<1',
     ],
 
     extras_require={
@@ -44,6 +45,7 @@ setup(
             ':ts3_entry_point',
             'cnto-arma3-monitor=monitoring_scripts.arma3_monitor'
             ':arma3_entry_point',
+            'cnto-check-runner=check_runner:console_entry_point'
         ],
     },
 )
