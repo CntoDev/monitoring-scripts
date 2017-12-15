@@ -3,7 +3,7 @@
 import pytest
 
 
-def run_and_assert(unit_invocation, expected_code, capfd, expected_message=None,
+def run_and_assert(unit_invocation, expected_code, capfd=None, expected_message=None,
                    **execution_args):
     """Ensure a function follows Nagios standards
 
@@ -24,8 +24,9 @@ def run_and_assert(unit_invocation, expected_code, capfd, expected_message=None,
 
     assert execution_result.value.code == expected_code.value
 
-    out = capfd.readouterr()[0]
-    if out:
-        assert out.startswith(expected_code.name + ':')
-        if expected_message:
-            assert expected_message in out
+    if capfd:
+        out = capfd.readouterr()[0]
+        if out:
+            assert out.startswith(expected_code.name + ':')
+            if expected_message:
+                assert expected_message in out
